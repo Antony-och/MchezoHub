@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: var(--bg-canvas);
+  --color-surface-card: var(--surface-card);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary: var(--surface-tertiary);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-text: var(--accent-text);
+}
+
+@layer base {
+  :root {
+    --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Light Theme - High contrast and clear card elevation */
+    --bg-canvas: #f1f5f9;
+    --surface-card: #ffffff;
+    --surface-secondary: #e2e8f0;
+    --surface-tertiary: #cbd5e1;
+    --surface-hover: #f8fafc;
+    --surface-muted: #e2e8f0;
+    --border-subtle: #cbd5e1;
+    --border-strong: #94a3b8;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --accent: #dc2626;
+    --accent-hover: #b91c1c;
+    --accent-subtle: #fee2e2;
+    --accent-text: #991b1b;
+    --ring: rgba(220, 38, 38, 0.25);
+    --gold: #d97706;
+    --gold-subtle: #fef3c7;
+    --success: #059669;
+    --danger: #dc2626;
+  }
+
+  [data-theme='dark'],
+  .dark {
+    /* Dark Theme */
+    --bg-canvas: #090d16;
+    --surface-card: #111827;
+    --surface-secondary: #1e293b;
+    --surface-tertiary: #334155;
+    --surface-hover: #1f2937;
+    --surface-muted: #1e293b;
+    --border-subtle: #1e293b;
+    --border-strong: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent: #ef4444;
+    --accent-hover: #dc2626;
+    --accent-subtle: rgba(239, 68, 68, 0.18);
+    --accent-text: #fca5a5;
+    --ring: rgba(239, 68, 68, 0.35);
+    --gold: #f59e0b;
+    --gold-subtle: rgba(245, 158, 11, 0.15);
+    --success: #10b981;
+    --danger: #ef4444;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Fallback utilities to guarantee CSS variable binding in all contexts */
+.bg-canvas { background-color: var(--bg-canvas) !important; }
+.bg-surface-card { background-color: var(--surface-card) !important; }
+.bg-surface-secondary { background-color: var(--surface-secondary) !important; }
+.bg-surface-tertiary { background-color: var(--surface-tertiary) !important; }
+.bg-surface-hover { background-color: var(--surface-hover) !important; }
+
+.text-text-primary { color: var(--text-primary) !important; }
+.text-text-secondary { color: var(--text-secondary) !important; }
+.text-text-muted { color: var(--text-muted) !important; }
+
+.border-border-subtle { border-color: var(--border-subtle) !important; }
+.border-border-strong { border-color: var(--border-strong) !important; }
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Card 3D Flip Effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Hammer cursor for Whack-a-Mole */
+.cursor-mallet {
+  cursor: crosshair;
+}
+
+@keyframes score-float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(1.15);
+  }
+}
+
+.animate-score-float {
+  animation: score-float 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes merge-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-merge-pulse {
+  animation: merge-pulse 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}

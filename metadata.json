@@ -1,0 +1,6 @@
+{
+  "name": "GameHub",
+  "description": "A browser game hub featuring instant mini-games: Tic-Tac-Toe, Snake, Memory Match, 2048, Whack-a-Mole, Connect Four, Chess, Checkers, Hangman, Solitaire, and Rock Paper Scissors with shared scores, sound effects, and customizable themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
