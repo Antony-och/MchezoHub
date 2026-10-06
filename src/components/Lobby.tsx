@@ -31,6 +31,7 @@ interface LobbyProps {
   currentTheme: ThemeMode;
   onThemeChange: (theme: ThemeMode) => void;
   onOpenDevGuide: () => void;
+  onOpenLeaderboard?: () => void;
 }
 
 const CATEGORIES: ('All' | GameCategory)[] = ['All', 'Classic', 'Arcade', 'Card', 'Word', 'Puzzle', 'Action'];
@@ -41,6 +42,7 @@ export const Lobby: React.FC<LobbyProps> = ({
   currentTheme,
   onThemeChange,
   onOpenDevGuide,
+  onOpenLeaderboard,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<'All' | GameCategory>('All');
@@ -121,10 +123,35 @@ export const Lobby: React.FC<LobbyProps> = ({
                 Recent
               </a>
             )}
+            {onOpenLeaderboard && (
+              <button
+                onClick={() => {
+                  sound.play('click');
+                  onOpenLeaderboard();
+                }}
+                className="hover:text-text-primary transition-colors cursor-pointer"
+              >
+                Leaderboard
+              </button>
+            )}
           </nav>
 
           {/* Zone 3: Primary Actions */}
           <div className="flex items-center gap-2">
+            {onOpenLeaderboard && (
+              <button
+                onClick={() => {
+                  sound.play('click');
+                  onOpenLeaderboard();
+                }}
+                className="p-2 rounded-xl text-amber-500 hover:text-amber-400 hover:bg-surface-secondary transition-colors cursor-pointer"
+                title="Centralized Leaderboard"
+                aria-label="View Leaderboard"
+              >
+                <Trophy size={18} />
+              </button>
+            )}
+
             <button
               onClick={toggleSound}
               className="p-2 rounded-xl text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors cursor-pointer"
@@ -190,6 +217,19 @@ export const Lobby: React.FC<LobbyProps> = ({
                   <Play size={16} fill="currentColor" />
                   <span>Play {featuredGame.title}</span>
                 </button>
+
+                {onOpenLeaderboard && (
+                  <button
+                    onClick={() => {
+                      sound.play('click');
+                      onOpenLeaderboard();
+                    }}
+                    className="flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-500/15 text-amber-500 hover:bg-amber-500/25 border border-amber-500/30 font-semibold text-xs transition-colors cursor-pointer shadow-xs"
+                  >
+                    <Trophy size={15} />
+                    <span>Leaderboard</span>
+                  </button>
+                )}
 
                 <button
                   onClick={() => {
@@ -299,7 +339,7 @@ export const Lobby: React.FC<LobbyProps> = ({
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-xs text-text-muted flex items-center gap-1.5 mb-0.5">
-                        <span>{game.category}</span>
+                        <span>Instant Play</span>
                         <span aria-hidden="true">·</span>
                         <span className="text-amber-500 font-semibold tabular-nums">
                           Best: {best}
@@ -400,13 +440,18 @@ export const Lobby: React.FC<LobbyProps> = ({
                     {/* Gradient scrim for legibility */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                    {/* Category kicker on image */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-semibold text-white">
-                      {game.category}
-                    </div>
-
                     {/* High Score Badge */}
-                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-semibold text-amber-400 flex items-center gap-1 tabular-nums">
+                    <div
+                      onClick={(e) => {
+                        if (onOpenLeaderboard) {
+                          e.stopPropagation();
+                          sound.play('click');
+                          onOpenLeaderboard();
+                        }
+                      }}
+                      className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/60 hover:bg-black/80 backdrop-blur-md text-[11px] font-semibold text-amber-400 flex items-center gap-1 tabular-nums transition-colors cursor-pointer"
+                      title="View Centralized Leaderboard"
+                    >
                       <Trophy size={11} />
                       <span>Best: {bestScore}</span>
                     </div>
@@ -510,7 +555,19 @@ export const Lobby: React.FC<LobbyProps> = ({
                 <span aria-hidden="true">·</span>
                 <span>Zero Install</span>
                 <span aria-hidden="true">·</span>
-                <span>Local High Scores</span>
+                {onOpenLeaderboard ? (
+                  <button
+                    onClick={() => {
+                      sound.play('click');
+                      onOpenLeaderboard();
+                    }}
+                    className="hover:text-text-primary transition-colors cursor-pointer text-accent font-semibold"
+                  >
+                    Centralized Leaderboards
+                  </button>
+                ) : (
+                  <span>Local High Scores</span>
+                )}
                 <span aria-hidden="true">·</span>
                 <span>Canvas 2D</span>
               </div>

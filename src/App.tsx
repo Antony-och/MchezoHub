@@ -4,6 +4,7 @@ import { GameComponentProps } from './types/game';
 import { Lobby } from './components/Lobby';
 import { GameShell } from './components/GameShell';
 import { DevGuideModal } from './components/DevGuideModal';
+import { LeaderboardModal } from './components/LeaderboardModal';
 import { TicTacToeGame } from './games/TicTacToe';
 import { SnakeGame } from './games/Snake';
 import { MemoryMatchGame } from './games/MemoryMatch';
@@ -36,6 +37,10 @@ export default function App() {
   const [activeGameId, setActiveGameId] = useState<string | null>(null);
   const [theme, setTheme] = useState<ThemeMode>(() => getSavedTheme());
   const [isDevGuideOpen, setIsDevGuideOpen] = useState<boolean>(false);
+  const [leaderboardConfig, setLeaderboardConfig] = useState<{ isOpen: boolean; gameId?: string }>({
+    isOpen: false,
+    gameId: 'all',
+  });
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   // Initialize theme on mount
@@ -60,6 +65,14 @@ export default function App() {
     }, 120);
   };
 
+  const handleOpenLeaderboard = (gameId: string = 'all') => {
+    setLeaderboardConfig({ isOpen: true, gameId });
+  };
+
+  const handleCloseLeaderboard = () => {
+    setLeaderboardConfig((prev) => ({ ...prev, isOpen: false }));
+  };
+
   const activeGame = GAMES.find((g) => g.id === activeGameId);
   const ActiveGameComponent = activeGameId ? GAME_COMPONENTS[activeGameId] : null;
 
@@ -80,6 +93,7 @@ export default function App() {
           currentTheme={theme}
           onThemeChange={setTheme}
           onBackToLobby={handleBackToLobby}
+          onOpenLeaderboard={() => handleOpenLeaderboard(activeGame.id)}
         />
       ) : (
         <Lobby
@@ -88,11 +102,24 @@ export default function App() {
           currentTheme={theme}
           onThemeChange={setTheme}
           onOpenDevGuide={() => setIsDevGuideOpen(true)}
+          onOpenLeaderboard={() => handleOpenLeaderboard('all')}
         />
       )}
 
       {/* Developer Guide Modal */}
       {isDevGuideOpen && <DevGuideModal onClose={() => setIsDevGuideOpen(false)} />}
+
+      {/* Persistent Centralized Leaderboard Overlay */}
+      {leaderboardConfig.isOpen && (
+        <LeaderboardModal
+          onClose={handleCloseLeaderboard}
+          onSelectGame={(gameId) => {
+            handleCloseLeaderboard();
+            handleSelectGame(gameId);
+          }}
+          initialGameId={leaderboardConfig.gameId || 'all'}
+        />
+      )}
     </div>
   );
 }

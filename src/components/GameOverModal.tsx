@@ -11,6 +11,7 @@ interface GameOverModalProps {
   gameTitle: string;
   onPlayAgain: () => void;
   onBackToLobby: () => void;
+  onOpenLeaderboard?: () => void;
 }
 
 export const GameOverModal: React.FC<GameOverModalProps> = ({
@@ -21,6 +22,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
   gameTitle,
   onPlayAgain,
   onBackToLobby,
+  onOpenLeaderboard,
 }) => {
   useEffect(() => {
     if (isNewHighScore) {
@@ -92,6 +94,19 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
             <span>Play Again</span>
             <span className="text-white/70 text-xs font-normal ml-1">(Enter)</span>
           </button>
+
+          {onOpenLeaderboard && (
+            <button
+              onClick={() => {
+                sound.play('click');
+                onOpenLeaderboard();
+              }}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-surface-secondary text-amber-500 hover:text-amber-400 font-semibold text-sm hover:bg-surface-tertiary active:scale-[0.98] transition-colors border border-border-strong shadow-xs cursor-pointer"
+            >
+              <Trophy size={16} />
+              <span>View Leaderboard</span>
+            </button>
+          )}
 
           <button
             onClick={() => {

@@ -16,7 +16,13 @@ import {
 import { GameOverModal } from './GameOverModal';
 import { PauseModal } from './PauseModal';
 import { RulesModal } from './RulesModal';
-import { getHighScore, saveScore, ThemeMode, setSavedTheme } from '../utils/storage';
+import {
+  getHighScore,
+  saveScore,
+  ThemeMode,
+  setSavedTheme,
+  recordLeaderboardEntry,
+} from '../utils/storage';
 
 interface GameShellProps {
   game: GameDefinition;
@@ -30,6 +36,7 @@ interface GameShellProps {
   currentTheme: ThemeMode;
   onThemeChange: (theme: ThemeMode) => void;
   onBackToLobby: () => void;
+  onOpenLeaderboard?: () => void;
 }
 
 export const GameShell: React.FC<GameShellProps> = ({
@@ -38,6 +45,7 @@ export const GameShell: React.FC<GameShellProps> = ({
   currentTheme,
   onThemeChange,
   onBackToLobby,
+  onOpenLeaderboard,
 }) => {
   const [currentScore, setCurrentScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(() => getHighScore(game.id));
@@ -71,6 +79,8 @@ export const GameShell: React.FC<GameShellProps> = ({
     if (isNewRecord) {
       setHighScore(score);
     }
+    // Automatically record persistent leaderboard entry in localStorage
+    recordLeaderboardEntry(game.id, game.title, score, game.scoreLabel);
     setIsGameOver(true);
   };
 
@@ -144,15 +154,36 @@ export const GameShell: React.FC<GameShellProps> = ({
               </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-surface-secondary/70 border border-border-subtle text-xs">
+            <button
+              onClick={() => {
+                sound.play('click');
+                onOpenLeaderboard?.();
+              }}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-surface-secondary/70 hover:bg-surface-secondary border border-border-subtle text-xs cursor-pointer transition-colors"
+              title="View Centralized Leaderboard"
+            >
               <Trophy size={13} className="text-amber-500" />
               <span className="text-[11px] text-text-muted">Best:</span>
               <span className="font-bold text-amber-500 tabular-nums">{highScore}</span>
-            </div>
+            </button>
           </div>
 
-          {/* Right Zone: Pause, Sound, Theme, Rules, Restart */}
+          {/* Right Zone: Pause, Sound, Leaderboard, Theme, Rules, Restart */}
           <div className="flex items-center gap-1 sm:gap-2">
+            {onOpenLeaderboard && (
+              <button
+                onClick={() => {
+                  sound.play('click');
+                  onOpenLeaderboard();
+                }}
+                className="p-2 rounded-xl text-amber-500 hover:text-amber-400 hover:bg-surface-secondary transition-colors cursor-pointer"
+                title="Leaderboard (Rankings)"
+                aria-label="View Leaderboard"
+              >
+                <Trophy size={18} />
+              </button>
+            )}
+
             <button
               onClick={() => {
                 sound.play('click');
@@ -241,6 +272,7 @@ export const GameShell: React.FC<GameShellProps> = ({
           gameTitle={game.title}
           onPlayAgain={restartCurrentGame}
           onBackToLobby={onBackToLobby}
+          onOpenLeaderboard={onOpenLeaderboard}
         />
       )}
 

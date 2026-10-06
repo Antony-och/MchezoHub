@@ -1,4 +1,15 @@
 import { GameDefinition } from '../types/game';
+import thumbTicTacToe from '../assets/images/thumb_tic_tac_toe_1791208542892.jpg';
+import thumbSnake from '../assets/images/thumb_snake_game_1791208557014.jpg';
+import thumbMemory from '../assets/images/thumb_memory_match_1791208568597.jpg';
+import thumb2048 from '../assets/images/thumb_game_2048_1791208581614.jpg';
+import thumbWhackAMole from '../assets/images/thumb_whack_a_mole_1791208593042.jpg';
+import thumbConnectFour from '../assets/images/thumb_connect_four_1791209331354.jpg';
+import thumbChess from '../assets/images/thumb_chess_game_1791209730603.jpg';
+import thumbCheckers from '../assets/images/thumb_checkers_game_1791209742872.jpg';
+import thumbHangman from '../assets/images/thumb_hangman_game_1791270625471.jpg';
+import thumbSolitaire from '../assets/images/thumb_solitaire_game_1791270636157.jpg';
+import thumbRps from '../assets/images/thumb_rps_game_1791270647350.jpg';
 
 export const GAMES: GameDefinition[] = [
   {
@@ -7,7 +18,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Classic tactical grid duel against smart AI or a friend',
     description: 'Place your mark on the 3x3 board. Align three symbols horizontally, vertically, or diagonally to win. Includes Easy, Medium, and Unbeatable Minimax AI difficulty modes, as well as 2-player pass-and-play.',
     category: 'Classic',
-    thumbnail: '/src/assets/images/thumb_tic_tac_toe_1791208542892.jpg',
+    thumbnail: thumbTicTacToe,
     accentColor: '#3b82f6',
     scoreLabel: 'Wins',
     controls: [
@@ -27,7 +38,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Fast-paced arcade eating challenge rendered with Canvas API',
     description: 'Slither through the arena, gobble crispy apples to grow longer, and catch rare glowing golden starfruits for bonus multipliers. Beware of walls and your own tail!',
     category: 'Action',
-    thumbnail: '/src/assets/images/thumb_snake_game_1791208557014.jpg',
+    thumbnail: thumbSnake,
     accentColor: '#10b981',
     scoreLabel: 'Points',
     controls: [
@@ -48,7 +59,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Test your spatial recall with responsive 3D card flips',
     description: 'Flip pairs of mystery tiles to discover matching icons. Chain rapid matches to trigger combo streaks and maximize your score before time ticks away.',
     category: 'Puzzle',
-    thumbnail: '/src/assets/images/thumb_memory_match_1791208568597.jpg',
+    thumbnail: thumbMemory,
     accentColor: '#dc2626',
     scoreLabel: 'Score',
     controls: [
@@ -68,7 +79,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Slide, combine, and conquer the legendary powers-of-two puzzle',
     description: 'Slide numbered tiles across the 4x4 board. When two tiles with identical numbers collide, they merge into one with double value! Can you reach the coveted 2048 tile?',
     category: 'Puzzle',
-    thumbnail: '/src/assets/images/thumb_game_2048_1791208581614.jpg',
+    thumbnail: thumb2048,
     accentColor: '#f59e0b',
     scoreLabel: 'Score',
     controls: [
@@ -89,7 +100,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Reflex-testing carnival mayhem with dynamic moles & combos',
     description: 'Grab your mallet and tap mischievous moles popping out of their burrow holes! Catch bonus golden king moles, but watch out for spiky cactus traps that dock points.',
     category: 'Arcade',
-    thumbnail: '/src/assets/images/thumb_whack_a_mole_1791208593042.jpg',
+    thumbnail: thumbWhackAMole,
     accentColor: '#ef4444',
     scoreLabel: 'Score',
     controls: [
@@ -110,7 +121,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Drop checkers and align four in a row horizontally, vertically, or diagonally',
     description: 'Drop colored checkers into the 7x6 vertical grid rack. Be the first to connect four of your discs in a continuous line while outmaneuvering your opponent. Features Easy, Medium, and Master AI difficulty, plus 2-player pass-and-play.',
     category: 'Classic',
-    thumbnail: '/src/assets/images/thumb_connect_four_1791209331354.jpg',
+    thumbnail: thumbConnectFour,
     accentColor: '#2563eb',
     scoreLabel: 'Wins',
     controls: [
@@ -131,7 +142,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'The timeless strategy duel of kings, queens, and grandmasters',
     description: 'Command your pieces across the 64-square battlefield. Outthink your opponent with tactical maneuvers, piece captures, and checkmate assaults. Features smart AI bot (Easy, Medium, Master) and 2-player pass-and-play.',
     category: 'Classic',
-    thumbnail: '/src/assets/images/thumb_chess_game_1791209730603.jpg',
+    thumbnail: thumbChess,
     accentColor: '#b45309',
     scoreLabel: 'Wins',
     controls: [
@@ -153,7 +164,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Classic diagonal draughts with jumps, multi-captures, and crowned kings',
     description: 'Slide your checkers along the dark squares, jump over opponent pieces to capture them, and promote to King upon reaching the back row. Features smart AI bot and 2-player local match.',
     category: 'Classic',
-    thumbnail: '/src/assets/images/thumb_checkers_game_1791209742872.jpg',
+    thumbnail: thumbCheckers,
     accentColor: '#dc2626',
     scoreLabel: 'Wins',
     controls: [
@@ -175,7 +186,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Crack mystery words letter-by-letter before the gallows completes',
     description: 'Guess letters using the on-screen alphabet or your keyboard to uncover hidden words across various categories: Animals, Countries, Food, Tech, Gaming, and Science. Watch out: 6 incorrect guesses and it’s game over!',
     category: 'Word',
-    thumbnail: '/src/assets/images/thumb_hangman_game_1791270625471.jpg',
+    thumbnail: thumbHangman,
     accentColor: '#e11d48',
     scoreLabel: 'Score',
     controls: [
@@ -196,7 +207,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Classic Klondike card patience with drag-and-drop & one-tap moves',
     description: 'The world-famous Klondike Solitaire card game. Stack tableau columns in alternating red and black colors descending from King to Ace, and build foundation piles up by suit from Ace to King. Features drag-and-drop and double-click auto-foundation.',
     category: 'Card',
-    thumbnail: '/src/assets/images/thumb_solitaire_game_1791270636157.jpg',
+    thumbnail: thumbSolitaire,
     accentColor: '#059669',
     scoreLabel: 'Score',
     controls: [
@@ -218,7 +229,7 @@ export const GAMES: GameDefinition[] = [
     tagline: 'Fast-paced hand duel against an adaptive, psychological AI bot',
     description: 'Throw down Rock, Paper, or Scissors against a clever AI that learns your patterns and attempts counter-picks. Features rapid 1-second rounds, streak multiplier bonuses, and round statistics.',
     category: 'Arcade',
-    thumbnail: '/src/assets/images/thumb_rps_game_1791270647350.jpg',
+    thumbnail: thumbRps,
     accentColor: '#ea580c',
     scoreLabel: 'Streak',
     controls: [
